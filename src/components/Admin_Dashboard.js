@@ -92,112 +92,76 @@ const AdminDashboard = () => {
       );
     });
   
-  //   return (
-  //     <div className="flex h-screen bg-gray-50">
-  //       {/* Sidebar */}
-  //       <div className="bg-gray-800 text-white w-64 p-6 flex flex-col space-y-6">
-  //         <h1 className="text-2xl font-bold">Application Name</h1>
-  //         {/* Sidebar buttons... */}
-  //         <button className="mt-auto block w-full bg-red-500 hover:bg-red-600 transition text-white font-medium py-2 px-4 rounded-lg">
-  //           Logout
-  //         </button>
-  //       </div>
-  
-  //       {/* Main Content */}
-  //       <div className="flex-1 p-6 overflow-auto">
-  //         <h1 className="text-3xl font-bold text-gray-900 mb-6">Cases</h1>
-  //         {/* Filter inputs... */}
-  
-  //         <div className="overflow-x-auto">
-  //           <table className="min-w-full bg-white rounded-lg shadow-lg">
-  //             <thead className="bg-gray-200 text-gray-700 uppercase text-sm">
-  //               <tr>
-  //                 <th className="py-3 px-6 text-left">Case ID</th>
-  //                 <th className="py-3 px-6 text-left">Case Name</th>
-  //                 <th className="py-3 px-6 text-left">Case Description</th>
-  //                 <th className="py-3 px-6 text-left">Date</th>
-  //                 <th className="py-3 px-6 text-left">Status</th>
-  //                 <th className="py-3 px-6 text-left">Actions</th>
-  //               </tr>
-  //             </thead>
-  //             <tbody className="text-gray-900">
-  //               {filteredCases.map((c) => (
-  //                 <tr key={c.id} className="border-b">
-  //                   <td className="py-3 px-6">{c.id}</td>
-  //                   <td className="py-3 px-6">{c.caseName}</td>
-  //                   <td className="py-3 px-6">{c.caseDescription}</td>
-  //                   <td className="py-3 px-6">{c.date}</td>
-  //                   <td className="py-3 px-6">
-  //                     <span
-  //                       className={`py-1 px-3 rounded-full text-sm font-medium ${
-  //                         c.status === 'Completed'
-  //                           ? 'bg-green-200 text-green-800'
-  //                           : c.status === 'Processing'
-  //                           ? 'bg-yellow-200 text-yellow-800'
-  //                           : 'bg-red-200 text-red-800'
-  //                       }`}
-  //                     >
-  //                       {c.status}
-  //                     </span>
-  //                   </td>
-  //                   <td className="py-3 px-6 space-x-2 flex">
-  //                     <button
-  //                       onClick={() => handleAccept(c.id)}
-  //                       className="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
-  //                     >
-  //                       Accept
-  //                     </button>
-  //                     <button
-  //                       onClick={() => handleReject(c.id)}
-  //                       className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
-  //                     >
-  //                       Reject
-  //                     </button>
-  //                   </td>
-  //                 </tr>
-  //               ))}
-  //             </tbody>
-  //           </table>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // };
-  
-  // export default AdminDash;
-// components/AdminDashboard.js
-
-function AdminDashboard() {
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
-      <div className="w-full max-w-md p-8 space-y-6">
-        <h2 className="text-center text-3xl font-bold text-gray-900">Admin Dashboard</h2>
-        <p className="text-center text-gray-600">Welcome, Admin!</p>
-        <div className="space-y-4">
-          {/* Example Action Cards */}
-          <div className="p-4 border rounded-lg bg-gray-100">
-            <h3 className="text-lg font-bold">Manage Users</h3>
-            <p className="text-gray-600">View and manage user accounts.</p>
-          </div>
-          <div className="p-4 border rounded-lg bg-gray-100">
-            <h3 className="text-lg font-bold">View Reports</h3>
-            <p className="text-gray-600">Check system reports and logs.</p>
-          </div>
-          <div className="p-4 border rounded-lg bg-gray-100">
-            <h3 className="text-lg font-bold">Settings</h3>
-            <p className="text-gray-600">Configure system settings.</p>
-          </div>
-        </div>
-        {/* Logout Button */}
-        <div className="mt-6">
-          <button className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none">
+    return (
+      <div className="flex h-screen bg-gray-50">
+        {/* Sidebar */}
+        <div className="bg-gray-800 text-white w-64 p-6 flex flex-col space-y-6">
+          <h1 className="text-2xl font-bold">Application Name</h1>
+          {/* Sidebar buttons... */}
+          <button className="mt-auto block w-full bg-red-500 hover:bg-red-600 transition text-white font-medium py-2 px-4 rounded-lg">
             Logout
           </button>
         </div>
+  
+        {/* Main Content */}
+        <div className="flex-1 p-6 overflow-auto">
+          <h1 className="text-3xl font-bold text-gray-900 mb-6">Cases</h1>
+          {/* Filter inputs... */}
+  
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-white rounded-lg shadow-lg">
+              <thead className="bg-gray-200 text-gray-700 uppercase text-sm">
+                <tr>
+                  <th className="py-3 px-6 text-left">Case ID</th>
+                  <th className="py-3 px-6 text-left">Case Name</th>
+                  <th className="py-3 px-6 text-left">Case Description</th>
+                  <th className="py-3 px-6 text-left">Date</th>
+                  <th className="py-3 px-6 text-left">Status</th>
+                  <th className="py-3 px-6 text-left">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="text-gray-900">
+                {filteredCases.map((c) => (
+                  <tr key={c.id} className="border-b">
+                    <td className="py-3 px-6">{c.id}</td>
+                    <td className="py-3 px-6">{c.caseName}</td>
+                    <td className="py-3 px-6">{c.caseDescription}</td>
+                    <td className="py-3 px-6">{c.date}</td>
+                    <td className="py-3 px-6">
+                      <span
+                        className={`py-1 px-3 rounded-full text-sm font-medium ${
+                          c.status === 'Completed'
+                            ? 'bg-green-200 text-green-800'
+                            : c.status === 'Processing'
+                            ? 'bg-yellow-200 text-yellow-800'
+                            : 'bg-red-200 text-red-800'
+                        }`}
+                      >
+                        {c.status}
+                      </span>
+                    </td>
+                    <td className="py-3 px-6 space-x-2 flex">
+                      <button
+                        onClick={() => handleAccept(c.id)}
+                        className="bg-blue-500 text-white py-1 px-2 rounded hover:bg-blue-600"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => handleReject(c.id)}
+                        className="bg-red-500 text-white py-1 px-2 rounded hover:bg-red-600"
+                      >
+                        Reject
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-    </div>
-  );
-};
-};
-
-export default AdminDashboard;
+    );
+  };
+  
+  export default AdminDashboard;

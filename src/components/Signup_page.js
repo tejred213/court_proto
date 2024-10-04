@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CreateAccount() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const userData = {
-      name,
-      email,
-      password,
-      role: 'user', // Default role
-    };
+
+    const userData = { name, email, password, role };
 
     try {
       const response = await fetch('http://localhost:5000/signup', {
@@ -26,11 +25,16 @@ function CreateAccount() {
 
       const result = await response.json();
       if (response.ok) {
-        alert('Account created successfully!');
+        if (result.message.includes('Redirecting')) {
+          navigate('/default_landing_page'); // Redirect to default landing page if user found in temp collection
+        } else {
+          navigate('/default_landing_page'); // Redirect after successful signup
+        }
       } else {
-        alert('Error creating account: ' + result.message);
+        setError(result.message);
       }
     } catch (error) {
+      setError('Error signing up');
       console.error('Error:', error);
     }
   };
@@ -51,7 +55,7 @@ function CreateAccount() {
               required
             />
           </div>
-          
+
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
@@ -73,6 +77,23 @@ function CreateAccount() {
               required
             />
           </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Role</label>
+            <select
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+              required
+            >
+              <option value="">Select Role</option>
+              <option value="user">User</option>
+              <option value="judge">Judge</option>
+              <option value="stenographer">Stenographer</option>
+            </select>
+          </div>
+
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
           <button type="submit" className="w-full bg-indigo-600 text-white py-2 rounded-lg hover:bg-indigo-700">
             Create Account

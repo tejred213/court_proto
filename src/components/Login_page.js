@@ -10,23 +10,56 @@ function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('Submitting Login:', { email, password }); // Log email and password
+
     try {
-      const response = await axios.post('http://localhost:8000/login', {
+      // Call login API
+      const response = await axios.post('http://localhost:5000/login', {
         email,
         password,
       });
+
+      // If login is successful
       if (response.status === 200) {
-        const { role } = response.data;
-        if (role === 'judge') {
-          navigate('/admin-dashboard');
-        } else if (role === 'lawyer') {
-          navigate('/users');
-        } else if (role === 'stenographer') {
+        console.log('Login Successful:', response.data); // Log the successful response
+        const { token, user } = response.data; // Access token and user info
+        localStorage.setItem('authToken', token); // Store JWT token
+        localStorage.setItem('user', JSON.stringify(user)); // Store user details
+
+        // Redirect based on user role
+        if (user.role === 'admin') {
+          navigate('/admin');
+        } else if (user.role === 'judge') {
+          navigate('/judge');
+        } else if (user.role === 'stenographer') {
           navigate('/stenographer');
+        } else if (user.role === 'user') {
+          navigate('/users');
         }
       }
     } catch (error) {
-      setError('Invalid email or password');
+      console.error('Login error:', error); // Log error details
+      // Check if user exists in TempUser and redirect to default landing page
+      if (error.response && error.response.status === 401) {
+        await checkTempUser(email);
+      } else {
+        setError('Invalid email or password');
+      }
+    }
+  };
+
+  // Function to check if the user exists in the TempUser collection
+  const checkTempUser = async (email) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/check-temp-user', { email });
+      if (response.status === 200) {
+        console.log('User found in TempUser:', response.data); // Log successful check
+        // If user is found in TempUser, redirect to default landing page
+        navigate('/default_landing_page');
+      }
+    } catch (error) {
+      console.error('Error checking temporary user:', error); // Log error during temp user check
+      setError('Error checking temporary user');
     }
   };
 
@@ -37,6 +70,9 @@ function LoginPage() {
           <div className="w-12 h-12 bg-gray-400 rounded-full"></div>
         </div>
         <h2 className="text-center text-3xl font-bold text-gray-900">Log in</h2>
+
+        {error && <div className="text-red-500">{error}</div>}
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
@@ -68,7 +104,7 @@ function LoginPage() {
               />
             </div>
           </div>
-          {error && <div className="text-red-500 text-sm">{error}</div>}
+
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <input
@@ -91,6 +127,7 @@ function LoginPage() {
               </button>
             </div>
           </div>
+
           <div>
             <button
               type="submit"
@@ -100,6 +137,7 @@ function LoginPage() {
             </button>
           </div>
         </form>
+
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
